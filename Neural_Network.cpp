@@ -1,9 +1,11 @@
 #include "Neural_Network.h"
-
+#include <ctime>
+#include <cstdlib>
 
 
 Neural_Network::Neural_Network(int input, std::vector<int> hidden, int output)
 {
+	srand(std::time(NULL));
 	// initialize neuron layers -- input layer
 	for (int i = 0; i < input; i++)
 	{
