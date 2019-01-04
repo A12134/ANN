@@ -8,6 +8,14 @@ double NEURON::ActivateFunction(double val)
 	return ActivationLibrary::activationFunction(val);
 }
 
+void NEURON::chainRule()
+{
+}
+
+void NEURON::chainRule(double target)
+{
+}
+
 NEURON::NEURON()
 {
 	this->value = 0.0f;
@@ -45,7 +53,7 @@ void NEURON::addOutgoingEdge(NEURON_EDGE* edge)
 
 void NEURON::setInValue(double val)
 {
-	this->value = ActivateFunction(val);
+	this->value = val;
 }
 
 void NEURON::getInputValue()

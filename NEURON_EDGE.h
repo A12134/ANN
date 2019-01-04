@@ -26,7 +26,7 @@ public:
 
 	void setDeltaWeight(double val) { this->deltaWeight = val; }
 	double getDeltaWeight() { return this->deltaWeight; }
-	void updateWeight() { this->weight -= this->deltaWeight / trainingCount; trainingCount = 0; this->deltaWeight = 0; }
+	void updateWeight() { this->weight += this->deltaWeight / trainingCount; deltaWeight = 0; this->trainingCount = 0; }
 
 
 };

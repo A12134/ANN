@@ -30,6 +30,15 @@
     <ClCompile Include="ActivationLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="INPUT_NEURON.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HIDDEN_NEURON.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OUTPUT_NEURON.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NEURON.h">
@@ -42,6 +51,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ActivationLibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="INPUT_NEURON.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HIDDEN_NEURON.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OUTPUT_NEURON.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

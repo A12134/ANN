@@ -20,6 +20,8 @@ public:
 	static double linearConstantMultply;
 	static double linearConstantAddition;
 
+	static float learningRate;
+
 	// activation key -- used to determine which activation function to use for the neural network
 	static ACTIVATION key;
 
@@ -28,13 +30,24 @@ public:
 
 	static double activationFunction(double value);
 
+	static double derivFunction(double value);
+
 private:
 
+	// never use step function in regular neural network, genetic neural network only
 	static double stepFunction(double value);
+
 	static double linearFunction(double value);
+	static double derivLinear(double value);
+
 	static double sigmoidFunction(double value);
+	static double derivSigmoid(double value);
+
 	static double tanhFunction(double value);
+	static double derivTanh(double value);
+
 	static double reluFunction(double value);
+	static double derivRelu(double value);
 };
 #endif
 

@@ -1,6 +1,8 @@
 #ifndef NEURAL_NETWORK_H
 #define NEURAL_NETWORK_H
-#include "NEURON.h"
+#include "INPUT_NEURON.h"
+#include "HIDDEN_NEURON.h"
+#include "OUTPUT_NEURON.h"
 #include "NEURON_EDGE.h"
 #include <vector>
 

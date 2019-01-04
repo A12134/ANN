@@ -1,15 +1,16 @@
 #include "Neural_Network.h"
+#include "NEURON.h"
 #include <ctime>
 #include <cstdlib>
 
 
 Neural_Network::Neural_Network(int input, std::vector<int> hidden, int output)
 {
-	srand(std::time(NULL));
+	m_learningRate = 1.0f;
 	// initialize neuron layers -- input layer
 	for (int i = 0; i < input; i++)
 	{
-		m_Input_Neurons.push_back(new NEURON());
+		m_Input_Neurons.push_back(new INPUT_NEURON());
 	}
 
 
@@ -20,28 +21,35 @@ Neural_Network::Neural_Network(int input, std::vector<int> hidden, int output)
 		m_hiddenLayer.push_back(std::vector<NEURON*>());
 		for (unsigned int j = 0; j < neuronNum; j++)
 		{
-			m_hiddenLayer.at(m_hiddenLayer.size() - 1).push_back(new NEURON());
+			m_hiddenLayer.at(m_hiddenLayer.size() - 1).push_back(new HIDDEN_NEURON());
 		}
 	}
 
 	// initialize neuron layer -- output layer
 	for (unsigned int i = 0; i < output; i++)
 	{
-		m_Output_Neurons.push_back(new NEURON());
+		m_Output_Neurons.push_back(new OUTPUT_NEURON());
 	}
 
 	// link hidden layers with edges
-	for (unsigned int i = 0; i < m_hiddenLayer.size()-1; i++)
+
+	if (hidden.size() > 1)
 	{
-		std::vector<NEURON*>* currentLayer = &m_hiddenLayer.at(i);
-		std::vector<NEURON*>* nextLayer = &m_hiddenLayer.at(i + 1);
-		linkTwoLayer(currentLayer, nextLayer);
-		currentLayer = nullptr;
-		nextLayer = nullptr;
+		int sizeOfHiddenLayer = m_hiddenLayer.size() - 1;
+
+		for (unsigned int i = 0; i < sizeOfHiddenLayer; i++)
+		{
+			std::vector<NEURON*>* currentLayer = &m_hiddenLayer.at(i);
+			std::vector<NEURON*>* nextLayer = &m_hiddenLayer.at(i + 1);
+			linkTwoLayer(currentLayer, nextLayer);
+			currentLayer = nullptr;
+			nextLayer = nullptr;
+		}
 	}
+	
 
 	// lint input layer with output layer if there is no hidden layer
-	if (m_hiddenLayer.size() == 0)
+	if (hidden.size() == 0)
 	{
 		// link input and output
 		linkTwoLayer(&m_Input_Neurons, &m_Output_Neurons);
@@ -100,29 +108,6 @@ void Neural_Network::linkTwoLayer(std::vector<NEURON*>* layer1, std::vector<NEUR
 			tmpEdge = nullptr;
 		}
 	}
-}
-
-double Neural_Network::UTILS_deltaRule(NEURON_EDGE* edge)
-{
-	NEURON* out = edge->getOutputNeuron();
-	NEURON* in = edge->getInputNeuron();
-	double target = out->getdesireValue();
-	double outVal = out->getOutValue();
-	double inVal = in->getOutValue();
-
-	// used for previous layer
-	out->setDeltaValue(-(target - outVal)*outVal*(1 - outVal));
-	
-	// deltaRule
-	edge->setDeltaWeight(this->m_learningRate*out->getDeltaValue());
-
-	in->setdesireValue(in->getdesireValue() + out->getDeltaValue());
-
-	edge->increaseTrainingCount();
-
-	out = nullptr;
-	in = nullptr;
-	return 0.0f;
 }
 
 void Neural_Network::feedForward(std::vector<double> inputs) 
@@ -186,6 +171,7 @@ void Neural_Network::training(std::vector<std::vector<double>> trainingSet, std:
 		for (unsigned int j = 0; j < m_Input_Neurons.at(i)->getOutgoingEdges()->size(); j++)
 		{
 			m_Input_Neurons.at(i)->getOutgoingEdges()->at(j)->updateWeight();
+
 		}
 	}
 
@@ -194,43 +180,31 @@ void Neural_Network::training(std::vector<std::vector<double>> trainingSet, std:
 		std::vector<NEURON*>* layer = &m_hiddenLayer.at(i);
 		for (unsigned int j = 0; j < layer->size(); j++)
 		{
-			for (unsigned int z = 0; z < layer->at(z)->getOutgoingEdges()->size(); z++)
+			for (unsigned int z = 0; z < layer->at(j)->getOutgoingEdges()->size(); z++)
 			{
 				layer->at(j)->getOutgoingEdges()->at(z)->updateWeight();
 			}
 		}
 	}
+
 }
 
 void Neural_Network::backPropagation(std::vector<double> sampleOutput)
 {
-
-	
-
-	// back propagation start from output layer
-	for (unsigned int i = 0; i < m_Output_Neurons.size(); i++)
+	// start chain rule for each output neuron
+	for (unsigned int i = 0; i < this->m_Output_Neurons.size(); i++)
 	{
-		NEURON* neuron = m_Output_Neurons.at(i);
-		neuron->setdesireValue(sampleOutput.at(i));
-		for (unsigned int j = 0; j < neuron->getIncomingEdges()->size(); j++)
-		{
-			// set output neuron's desire output
-			UTILS_deltaRule(neuron->getIncomingEdges()->at(j));
-		}
-		neuron = nullptr;
+		OUTPUT_NEURON* neuron = (OUTPUT_NEURON*)this->m_Output_Neurons.at(i);
+		neuron->chainRule(sampleOutput.at(i));
 	}
 
-	// go through hidden layer
-	for (unsigned int i = 0; i < m_hiddenLayer.size(); i++)
+	// start chain rule for each hidden neuron
+	for (unsigned int i = 0; i < this->m_hiddenLayer.size(); i++)
 	{
-		for (unsigned int j = 0; j < m_hiddenLayer.at(i).size(); j++)
+		for (unsigned int j = 0; j < this->m_hiddenLayer.at(i).size(); j++)
 		{
-			NEURON* neuron = m_hiddenLayer.at(i).at(j);
-			for (unsigned int z = 0; z < neuron->getIncomingEdges()->size(); z++)
-			{
-				UTILS_deltaRule(neuron->getIncomingEdges()->at(z));
-			}
-			neuron = nullptr;
+			HIDDEN_NEURON* neuron = (HIDDEN_NEURON*)this->m_hiddenLayer.at(i).at(j);
+			neuron->chainRule();
 		}
 	}
 }

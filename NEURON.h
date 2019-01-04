@@ -14,14 +14,17 @@ class NEURON
 protected:
 	double value;
 	double bias;
-	double deltaValue;
-	double desireValue;
+	// the value stored for computing back propagation
+	double hiddenValue;
 
 	std::vector<NEURON_EDGE*> m_IncomingEdges;
 	std::vector<NEURON_EDGE*> m_OutgoingEdges;
 
 protected:
 	virtual double ActivateFunction(double val);
+
+	virtual void chainRule() = 0;
+	virtual void chainRule(double target) = 0;
 
 public:
 	NEURON();
@@ -33,17 +36,11 @@ public:
 
 	std::vector<NEURON_EDGE*>* getOutgoingEdges() { return &m_OutgoingEdges; }
 
-	void setDeltaValue(double val) { this->deltaValue = val; }
-
-	double getDeltaValue() { return this->deltaValue; }
-
 	void setBias(double value) { this->bias = value; }
 
 	double getOutValue() { return value; }
 
-	void setdesireValue(double val) { this->desireValue = val; }
-
-	double getdesireValue() { return this->desireValue; }
+	double getHiddenValue() { return this->hiddenValue; }
 	
 	// for input layer only
 	void setInValue(double val);

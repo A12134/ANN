@@ -116,16 +116,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActivationLibrary.cpp" />
+    <ClCompile Include="HIDDEN_NEURON.cpp" />
+    <ClCompile Include="INPUT_NEURON.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Neural_Network.cpp" />
     <ClCompile Include="NEURON.cpp" />
     <ClCompile Include="NEURON_EDGE.cpp" />
+    <ClCompile Include="OUTPUT_NEURON.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActivationLibrary.h" />
+    <ClInclude Include="HIDDEN_NEURON.h" />
+    <ClInclude Include="INPUT_NEURON.h" />
     <ClInclude Include="Neural_Network.h" />
     <ClInclude Include="NEURON.h" />
     <ClInclude Include="NEURON_EDGE.h" />
+    <ClInclude Include="OUTPUT_NEURON.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
