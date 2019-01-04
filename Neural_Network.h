@@ -37,9 +37,6 @@ private:
 	void backPropagation(std::vector<double> sampleOutput);
 
 	void linkTwoLayer(std::vector<NEURON*>* layer1, std::vector<NEURON*>* layer2);
-	
-	// compute the single edge weight change for target, actual output, and input neuron value
-	double UTILS_deltaRule(NEURON_EDGE* edge);
 };
 #endif
 

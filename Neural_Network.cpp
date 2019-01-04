@@ -96,6 +96,7 @@ Neural_Network::~Neural_Network()
 	std::vector<NEURON*>().swap(m_Output_Neurons);
 }
 
+// link two neural layers with edges
 void Neural_Network::linkTwoLayer(std::vector<NEURON*>* layer1, std::vector<NEURON*>* layer2)
 {
 	for (unsigned int i = 0; i < layer1->size(); i++)
@@ -145,6 +146,7 @@ void Neural_Network::feedForward(std::vector<double> inputs)
 	}
 }
 
+// returns the result of neural network
 std::vector<double> Neural_Network::getNetworkOutputVector()
 {
 	std::vector<double> output;

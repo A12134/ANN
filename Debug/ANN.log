@@ -1,12 +1,13 @@
 ﻿  HIDDEN_NEURON.cpp
+  INPUT_NEURON.cpp
   NEURON.cpp
-  NEURON_EDGE.cpp
   Neural_Network.cpp
 c:\users\yu dai\source\repos\ann\ann\neural_network.cpp(22): warning C4018: '<': signed/unsigned mismatch
 c:\users\yu dai\source\repos\ann\ann\neural_network.cpp(29): warning C4018: '<': signed/unsigned mismatch
 c:\users\yu dai\source\repos\ann\ann\neural_network.cpp(40): warning C4018: '<': signed/unsigned mismatch
   OUTPUT_NEURON.cpp
   main.cpp
-c:\users\yu dai\source\repos\ann\ann\main.cpp(33): warning C4326: return type of 'main' should be 'int' instead of 'void'
+c:\users\yu dai\source\repos\ann\ann\main.cpp(9): warning C4326: return type of 'main' should be 'int' instead of 'void'
+c:\users\yu dai\source\repos\ann\ann\main.cpp(51): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   ANN.vcxproj -> C:\Users\Yu Dai\source\repos\ANN\Debug\ANN.exe

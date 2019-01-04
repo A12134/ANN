@@ -22,7 +22,8 @@ protected:
 
 protected:
 	virtual double ActivateFunction(double val);
-
+	
+	// performance gradient descent to each weight in the network
 	virtual void chainRule() = 0;
 	virtual void chainRule(double target) = 0;
 
