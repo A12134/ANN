@@ -14,16 +14,20 @@ void main()
 	// create a neural network with 1 input and 1 output
 	Neural_Network* brain_cancer = new Neural_Network(1, hiddenLayerNeurons, 1);
 
+	std::cout << "training network, please wait..." << std::endl;
+
+	int trainingIteration = 1000;
 	// training process
-	for (unsigned int i = 0; i < 8000; i++)
+	for (unsigned int i = 0; i < trainingIteration; i++)
 	{
 		srand(unsigned(time(0)));
 		std::vector<std::vector<double>> trainingSet;
 		std::vector<std::vector<double>> answers;
-
+		std::cout << "training network, please wait...   " << "iteration: " << i  << "/" << trainingIteration << std::endl;
 		// auto input and answer generate
-		for (unsigned int i = 0; i < 100; i++)
+		for (unsigned int j = 0; j < 100; j++)
 		{
+			
 			std::vector<double> tmp;
 			tmp.push_back(static_cast <float> (rand()) / static_cast <float> (RAND_MAX));
 			trainingSet.push_back(tmp);
