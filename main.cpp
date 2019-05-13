@@ -16,9 +16,9 @@ void main()
 
 	std::cout << "training network, please wait..." << std::endl;
 
-	int trainingIteration = 1000;
+	int trainingIteration = 2000;
 	// training process
-	for (unsigned int i = 0; i < trainingIteration; i++)
+	for (unsigned int i = 0; i <= trainingIteration; i++)
 	{
 		srand(unsigned(time(0)));
 		std::vector<std::vector<double>> trainingSet;
